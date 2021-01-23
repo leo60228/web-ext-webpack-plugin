@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const webExt = require('web-ext').default;
+const webExt = require('web-ext');
 
 const pluginName = 'WebExtWebpackPlugin';
 
@@ -20,7 +20,7 @@ class WebExtWebpackPlugin {
     this.browserConsole = browserConsole,
     this.firefox = firefox;
     this.firefoxProfile = firefoxProfile;
-    this.sourceDir = sourceDir;
+    this.sourceDir = path.resolve(__dirname, sourceDir);
     this.startUrl = startUrl;
   }
 
