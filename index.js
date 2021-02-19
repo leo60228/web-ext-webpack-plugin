@@ -7,22 +7,14 @@ const cwd = path.dirname(fileURLToPath(import.meta.url));
 const pluginName = 'WebExtWebpackPlugin';
 
 class WebExtWebpackPlugin {
-  constructor({
-    sourceDir = process.cwd(),
-    artifactsDir = path.join(sourceDir, 'web-ext-artifacts'),
-    browserConsole = false,
-    firefox,
-    firefoxProfile,
-    startUrl
-  } = {}) {
+  constructor(sourceDir, options = {
+    artifactsDir: path.join(sourceDir, 'web-ext-artifacts'),
+    browserConsole: false,
+  }) {
     this.runner = null;
     this.watchMode = false;
-    this.artifactsDir = artifactsDir;
-    this.browserConsole = browserConsole,
-    this.firefox = firefox;
-    this.firefoxProfile = firefoxProfile;
     this.sourceDir = path.resolve(cwd, sourceDir);
-    this.startUrl = startUrl;
+    this.options = options;
   }
 
   apply(compiler) {
@@ -33,7 +25,6 @@ class WebExtWebpackPlugin {
     const afterEmit = async (compilation) => {
       try {
         await webExt.cmd.lint({
-          artifactsDir: this.artifactsDir,
           boring: false,
           metadata: false,
           output: 'text',
@@ -41,6 +32,7 @@ class WebExtWebpackPlugin {
           sourceDir: this.sourceDir,
           verbose: false,
           warningsAsErrors: true,
+          ...this.options
         }, {
           shouldExitProgram: false,
         });
@@ -55,13 +47,9 @@ class WebExtWebpackPlugin {
         }
 
         await webExt.cmd.run({
-          artifactsDir: this.artifactsDir,
-          browserConsole: this.browserConsole,
           sourceDir: this.sourceDir,
-          firefox: this.firefox,
-          firefoxProfile: this.firefoxProfile,
-          startUrl: this.startUrl,
           noReload: true,
+          ...this.options
         }, { }).then((runner) => this.runner = runner);
 
         if (!this.runner) {
