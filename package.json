@@ -17,12 +17,12 @@
     "type": "git",
     "url": "git+https://github.com/hiikezoe/web-ext-webpack-plugin.git"
   },
-  "author": "Hiroyuki Ikezoe",
+  "author": "leo60228",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/hiikezoe/web-ext-webpack-plugin/issues"
+    "url": "https://github.com/leo60228/web-ext-webpack-plugin/issues"
   },
-  "homepage": "https://github.com/hiikezoe/web-ext-webpack-plugin#readme",
+  "homepage": "https://github.com/leo60228/web-ext-webpack-plugin",
   "dependencies": {
     "web-ext": "5.5.0"
   }
