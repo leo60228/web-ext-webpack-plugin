@@ -1,7 +1,8 @@
-'use strict';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import webExt from 'web-ext';
 
-const path = require('path');
-const webExt = require('web-ext');
+const cwd = path.dirname(fileURLToPath(import.meta.url));
 
 const pluginName = 'WebExtWebpackPlugin';
 
@@ -20,7 +21,7 @@ class WebExtWebpackPlugin {
     this.browserConsole = browserConsole,
     this.firefox = firefox;
     this.firefoxProfile = firefoxProfile;
-    this.sourceDir = path.resolve(__dirname, sourceDir);
+    this.sourceDir = path.resolve(cwd, sourceDir);
     this.startUrl = startUrl;
   }
 
@@ -85,4 +86,4 @@ class WebExtWebpackPlugin {
   }
 }
 
-module.exports = WebExtWebpackPlugin;
+export default WebExtWebpackPlugin;
